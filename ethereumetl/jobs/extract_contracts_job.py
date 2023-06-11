@@ -58,8 +58,8 @@ class ExtractContractsJob(BaseJob):
             trace['block_number'] = to_int_or_none(trace.get('block_number'))
 
         contract_creation_traces = [trace for trace in traces
-                                    if trace.get('trace_type') == 'create' and trace.get('to_address') is not None
-                                    and len(trace.get('to_address')) > 0 and trace.get('status') == 1]
+                                    if 'create' in trace.get('trace_type') and trace.get('to_address') is not None
+                                    and len(trace.get('to_address')) > 0 and len(trace.get('error')) == 0]
 
         contracts = []
         for trace in contract_creation_traces:
